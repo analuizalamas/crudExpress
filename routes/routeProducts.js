@@ -53,19 +53,7 @@ function authUser (req, res, next) {
         const content = req.body;
     
         const findProduct = products.findIndex((produto) => produto.id === id);
-
-        if (!produto) {
-            res.status(400).json({"message":"Produto não encontrado"})
-        }
-    
-        const uptadeProduct = products.map((produto) =>{
-            if(produto.id === id) return content;
-    
-            return produto;
-        })
-
         products[findProduct] = content;
-        products = uptadeProduct;
     
         res.status(200).json({message: "Produto atualizado com sucesso!"});
     })
