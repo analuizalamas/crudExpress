@@ -2,7 +2,7 @@ const express = require('express');
 
 const routes = express.Router();
 
-let products = require("../app");
+let products = require("../produtos");
 
 function validatePrice (req, res, next) {
     const { price } = req.body;
@@ -26,7 +26,7 @@ routes.post('/', validatePrice,(req, res) => {
 });
 
 /*
-
+produto
 function createUser(req, res, next) {      // passar createUser na rota ('./', createUser )
     res.locals.user = {       // res é um objeto
         nome: 'Matheus',
@@ -48,27 +48,27 @@ function authUser (req, res, next) {
 */ 
 
 // PUT
+    routes.put('/:id', (req, res) => {
+        const id = Number(req.params.id);
+        const content = req.body;
+    
+        const findProduct = products.findIndex((produto) => produto.id === id);
 
-routes.put('/:id', (req,res) => {
-    const id = Number(req.params.id);
-    const content = req.body;
+        if (!produto) {
+            res.status(400).json({"message":"Produto não encontrado"})
+        }
+    
+        const uptadeProduct = products.map((produto) =>{
+            if(produto.id === id) return content;
+    
+            return produto;
+        })
 
-    const product = products.find((produto) => produto.id === id);
-
-    if (!product) {
-        res.status(400).json({"message":"Produto não encontrado"})
-    }
-
-    const uptadeProduct = products.map((produto) =>{
-        if(produto.id === id) return content;
-
-        return produto;
-    })
+        products[findProduct] = content;
         products = uptadeProduct;
-
-        res.status(200).json(products)
-    });
-   
+    
+        res.status(200).json({message: "Produto atualizado com sucesso!"});
+    })
 
 // DELETE 
 
