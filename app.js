@@ -5,16 +5,9 @@ const app = express();
 let products = require("./produtos");
 
 app.use(express.json());
+app.use(express.json());
 
 // POST
-
-app.post("/produtos1", (req, res) => {
-  const content = req.body;
-
-  const newProducts = [...products, content]
-
-  res.status(201).json(newProducts)
-});
 
 app.post('/produtos', (req, res) => {
     const content = req.body;
@@ -22,6 +15,7 @@ app.post('/produtos', (req, res) => {
     products = [...products, content];
   
     res.status(201).json(products);
+
 });
 
 // PUT
@@ -63,6 +57,9 @@ app.delete("/produtos/:id", (req, res) => {
 });
 
 // GET 
+app.get('/produtos', (req,res) =>{
+    res.status(200).json(products);
+})
 
 app.get("/produtos/:id", (req, res) =>{
     const id = Number(req.params.id);
