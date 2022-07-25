@@ -63,9 +63,9 @@ function authUser (req, res, next) {
 routes.delete("/:id", (req, res) => {
   const id = Number(req.params.id);
 
-  const product = products.find((produto) => produto.id === id);
+  const produto = products.find((produto) => produto.id === id);
 
-   if (!product) {
+   if (!produto) {
     return res.status(400).json({"message":"Produto não encontrado"})
    }
    products = products.filter((produto) => produto.id !== id);
